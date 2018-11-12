@@ -1,0 +1,29 @@
+<h2>Edit a Book</h2>
+
+<form action="/book/{{bookItem._id}}/process-edit" method="POST">
+  <label>
+    Title:
+    <input type="text" name="title" value="{{bookItem.title}}"
+        placeholder="50 Shades of Grey" />
+  </label>
+
+  <label>
+    Author:
+    <input type="text" name="author" value="{{bookItem.author}}"
+        placeholder="E.L. James" />
+  </label>
+
+  <label>
+    Description (8 characters minimum):
+    <input type="text" name="description" value="{{bookItem.description}}"
+        placeholder="Blah blah blah" />
+  </label>
+
+  <label>
+    Rating (0-10):
+    <input type="number" name="rating" value="{{bookItem.rating}}"
+        placeholder="7" />
+  </label>
+
+  <button>Save Changes</button>
+</form>

@@ -1,0 +1,27 @@
+<h2>Add a Book</h2>
+
+<!-- Give your inputs the same name as your SCHEMA fields (see your model) -->
+<form action="/process-book" method="POST">
+  <label>
+    Title:
+    <input type="text" name="title" placeholder="Da Vinci Code" />
+  </label>
+
+  <label>
+    Author:
+    <input type="text" name="author" placeholder="Dan Brown" />
+  </label>
+
+  <label>
+    Description (8 characters minimum):
+    <input type="text" name="description"
+        placeholder="Robert Langdon is framed for murder..." />
+  </label>
+
+  <label>
+    Rating (0-10):
+    <input type="number" name="rating" placeholder="10" />
+  </label>
+
+  <button>Save This Book</button>
+</form>
