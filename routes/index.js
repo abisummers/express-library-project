@@ -1,6 +1,7 @@
 const express = require('express');
 
 const Book = require("../models/book-model.js");
+const Author = require("../models/author-model.js");
 
 const router  = express.Router();
 
@@ -11,6 +12,7 @@ router.get('/', (req, res, next) => {
 
 router.get("/books", (req, res, next) => {
   Book.find()
+    .populate("author") // "author" is the name of the ID in the schema
     .sort({ createdAt: -1 }) // sort by date (reverse order)
     .then(bookResults => {
       // send the database query results to the HBS file as "bookArray"
@@ -31,6 +33,7 @@ router.get("/book/:bookId", (req, res, next) => {
   const { bookId } = req.params;
 
   Book.findById(bookId)
+    .populate("author") // "author" is the name of the ID in the schema
     .then(bookDoc => {
       // send the database query results to the HBS file as "bookItem"
       res.locals.bookItem = bookDoc;
@@ -105,6 +108,20 @@ router.post("/book/:bookId/process-edit", (req, res, next) => {
   })
   // "next()" skips to the error handler in "bin/www"
   .catch(err => next(err));
+});
+
+router.get("/author/:authorId", (req, res, next) => {
+  // get the ID from the URL (it's inside the "req.params" object)
+  const { authorId } = req.params;
+
+  Author.findById(authorId)
+    .then(authorDoc => {
+      // send the database query results to the HBS file as "authorItem"
+      res.locals.authorItem = authorDoc;
+      res.render("author-details.hbs");
+    })
+    // "next()" skips to the error handler in "bin/www"
+    .catch(err => next(err));
 });
 
 

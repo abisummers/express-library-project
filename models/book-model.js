@@ -12,7 +12,11 @@ const bookSchema = new Schema({
     required: true,
     minlength: 8,
   },
-  author: { type: String, required: true, },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: "Author", // tells Mongoose this ID connects to the "Author" model
+    required: true,
+  },
   rating: {
     type: Number,
     min: 0,
