@@ -22,6 +22,14 @@ const bookSchema = new Schema({
     min: 0,
     max: 10,
   },
+  reviews: [{
+    user: { type: String, required: true },
+    comments: {
+      type: String,
+      required: true,
+      maxlength: 200,
+    },
+  }],
 }, {
   // additional settings for the Schema class
   timestamps: true,

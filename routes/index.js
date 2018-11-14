@@ -124,5 +124,28 @@ router.get("/author/:authorId", (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.post("/book/:bookId/process-review", (req, res, next) => {
+  // get the ID from the URL (it's inside the "req.params" object)
+  const { bookId } = req.params;
+
+  // get the user inputs from inside "req.body"
+  // (we use "req.body" because it's a POST form)
+  const { user, comments } = req.body;
+
+  // save user inputs in an existing book document
+  Book.findByIdAndUpdate(
+    bookId, // ID of the document to update
+    { $push: { reviews: { user, comments } } }, // changes to be made to the document
+    { runValidators: true } // additional settings
+  )
+  .then(bookDoc => {
+    // redirect if it's successful to avoid duplicate data from refreshes
+    // (redirect ONLY to URLs - `/book/${bookId}` instead of "book-details.hbs")
+    res.redirect(`/book/${bookId}`);
+  })
+  // "next()" skips to the error handler in "bin/www"
+  .catch(err => next(err));
+});
+
 
 module.exports = router;

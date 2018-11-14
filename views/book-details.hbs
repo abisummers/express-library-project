@@ -13,3 +13,31 @@
 
 <a href="/book/{{bookItem._id}}/edit">Edit This Book</a>
 <a href="/book/{{bookItem._id}}/delete">Delete This Book</a>
+
+<section class="book-reviews">
+  <h3>Reviews</h3>
+
+  <h4>Add a Review</h4>
+  <form action="/book/{{bookItem._id}}/process-review" method="POST">
+    <label>
+      Your Name:
+      <input type="text" name="user" placeholder="Anton Ego" />
+    </label>
+
+    <label>
+      Comments:
+      <input type="text" name="comments" placeholder="My favorite book!" />
+    </label>
+
+    <button>Submit Review</button>
+  </form>
+
+  <ul>
+    {{#each bookItem.reviews}}
+      <li>
+        <p><b>{{this.user}}</b> says:</p>
+        <p>{{this.comments}}</p>
+      </li>
+    {{/each}}
+  </ul>
+</section>
